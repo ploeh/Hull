@@ -19,21 +19,22 @@ let inline hull points =
         | 0 -> compareLexigraphic p1 p2
         | x -> x
 
-    let check points =
+    let tryDiscard points =
         let rec checkImp = function
             | [p1; p2; p3] when turn p1 p2 p3 = Direction.Right -> [p1; p3]
             | [p1; p2; p3] -> [p1; p2; p3]
             | p :: ps -> p :: checkImp ps
             | [] -> []
         let newPoints = checkImp points
-        newPoints.Length <> points.Length, newPoints
+        if newPoints.Length <> points.Length
+        then Some newPoints
+        else None
 
     let hullPoints points =
         let rec discardFrom candidates =
-            let wasDiscarded, newCandidates = check candidates
-            if wasDiscarded
-            then discardFrom newCandidates
-            else candidates
+            match tryDiscard candidates with
+            | Some newCandidates -> discardFrom newCandidates
+            | None -> candidates
 
         let rec hpImp candidates = function
             | [] -> candidates
