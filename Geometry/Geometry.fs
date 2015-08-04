@@ -30,16 +30,15 @@ let inline hull points =
         then Some newPoints
         else None
 
-    let hullPoints points =
-        let rec discardFrom candidates =
-            match tryDiscard candidates with
-            | Some newCandidates -> discardFrom newCandidates
-            | None -> candidates
+    let rec discardFrom candidates =
+        match tryDiscard candidates with
+        | Some newCandidates -> discardFrom newCandidates
+        | None -> candidates
 
-        let rec hpImp candidates = function
-            | [] -> candidates
-            | p :: tail -> hpImp (discardFrom (candidates @ [p])) tail
-        
-        hpImp [] points            
+    let rec hpImp candidates = function
+        | [] -> candidates
+        | p :: tail -> hpImp (discardFrom (candidates @ [p])) tail
+
+    let hullPoints points = hpImp [] points
 
     points |> List.sortWith cmp |> Seq.distinct |> Seq.toList |> hullPoints
