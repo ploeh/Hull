@@ -38,10 +38,7 @@ let inline hull points =
 
         let rec hpImp candidates = function
             | [] -> candidates
-            | p :: tail ->
-                let cs = candidates @ [p]
-                let updatedCandidates = discardFrom cs
-                hpImp updatedCandidates tail
+            | p :: tail -> hpImp (discardFrom (candidates @ [p])) tail
         
         hpImp [] points            
 
