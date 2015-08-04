@@ -11,11 +11,7 @@ let inline turn (x1, y1) (x2, y2) (x3, y3) =
 let inline hull points =
     let inline compareLexigraphic (x1, y1) (x2, y2) = compare (y1, x1) (y2, x2)
 
-    let inline comparePolar p0 p1 p2 =
-        match turn p0 p1 p2 with
-        | Direction.Left -> -1
-        | Direction.Straight -> 0
-        | _ -> 1
+    let inline comparePolar p0 p1 p2 = turn p0 p1 p2 |> int
 
     let cmp p1 p2 =
         let p0 = points |> List.sortWith compareLexigraphic |> List.head
