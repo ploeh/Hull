@@ -35,8 +35,8 @@ let inline hull points =
         | Some newCandidates -> discardFrom newCandidates
         | None -> candidates
 
-    let rec hpImp candidates = function
+    let rec hullPoints candidates = function
         | [] -> candidates
-        | p :: tail -> hpImp (discardFrom (candidates @ [p])) tail
+        | p :: tail -> hullPoints (discardFrom (candidates @ [p])) tail
 
-    points |> List.sortWith cmp |> Seq.distinct |> Seq.toList |> hpImp []
+    points |> List.sortWith cmp |> Seq.distinct |> Seq.toList |> hullPoints []
