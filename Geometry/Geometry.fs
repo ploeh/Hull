@@ -9,17 +9,17 @@ let inline turn (x1, y1) (x2, y2) (x3, y3) =
     else Direction.Straight
 
 let inline hull points =
-    let inline compareLexigraphic (x1, y1) (x2, y2) = compare (y1, x1) (y2, x2)
+    let compareLexigraphic (x1, y1) (x2, y2) = compare (y1, x1) (y2, x2)
 
-    let inline comparePolar p0 p1 p2 = turn p0 p1 p2 |> int
+    let comparePolar p0 p1 p2 = turn p0 p1 p2 |> int
 
     let p0 = points |> List.sortWith compareLexigraphic |> List.head
-    let inline cmp p1 p2 =    
+    let cmp p1 p2 =    
         match comparePolar p0 p1 p2 with
         | 0 -> compareLexigraphic p1 p2
         | x -> x
 
-    let inline check points =
+    let check points =
         let rec checkImp = function
             | [p1; p2; p3] when turn p1 p2 p3 = Direction.Right -> [p1; p3]
             | [p1; p2; p3] -> [p1; p2; p3]
@@ -28,17 +28,20 @@ let inline hull points =
         let newPoints = checkImp points
         newPoints.Length <> points.Length, newPoints
 
-    let inline hullPoints points =
+    let hullPoints points =
         let rec update candidates =
             let wasDiscarded, newCandidates = check candidates
             if wasDiscarded
             then update newCandidates
             else candidates
 
-        let mutable candidates = []
-        for p in points do
-            candidates <- candidates @ [p]
-            candidates <- update candidates
-        candidates
+        let rec hpImp candidates = function
+            | [] -> candidates
+            | p :: tail ->
+                let cs = candidates @ [p]
+                let updatedCandidates = update cs
+                hpImp updatedCandidates tail
+        
+        hpImp [] points            
 
     points |> List.sortWith cmp |> Seq.distinct |> Seq.toList |> hullPoints
