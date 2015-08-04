@@ -29,14 +29,16 @@ let inline hull points =
         newPoints.Length <> points.Length, newPoints
 
     let inline hullPoints points =
-        let mutable ps = []
-        for p in points do
-            ps <- ps @ [p]
-            let mutable shouldCheck = true
-            while shouldCheck do
-                let wasDiscarded, newPoints = check ps
-                shouldCheck <- wasDiscarded
-                if wasDiscarded then ps <- newPoints
-        ps
+        let rec update candidates =
+            let wasDiscarded, newCandidates = check candidates
+            if wasDiscarded
+            then update newCandidates
+            else candidates
 
-    points |> List.sortWith cmp |> Seq.distinct |> hullPoints
+        let mutable candidates = []
+        for p in points do
+            candidates <- candidates @ [p]
+            candidates <- update candidates
+        candidates
+
+    points |> List.sortWith cmp |> Seq.distinct |> Seq.toList |> hullPoints
