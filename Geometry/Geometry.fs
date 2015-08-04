@@ -40,5 +40,4 @@ let inline hull points =
                 if wasDiscarded then ps <- newPoints
         ps
 
-    let sortedPoints = points |> List.sortWith cmp |> Seq.distinct
-    sortedPoints |> hullPoints
+    points |> List.sortWith cmp |> Seq.distinct |> hullPoints
