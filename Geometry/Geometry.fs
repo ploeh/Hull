@@ -29,17 +29,17 @@ let inline hull points =
         newPoints.Length <> points.Length, newPoints
 
     let hullPoints points =
-        let rec update candidates =
+        let rec discardFrom candidates =
             let wasDiscarded, newCandidates = check candidates
             if wasDiscarded
-            then update newCandidates
+            then discardFrom newCandidates
             else candidates
 
         let rec hpImp candidates = function
             | [] -> candidates
             | p :: tail ->
                 let cs = candidates @ [p]
-                let updatedCandidates = update cs
+                let updatedCandidates = discardFrom cs
                 hpImp updatedCandidates tail
         
         hpImp [] points            
