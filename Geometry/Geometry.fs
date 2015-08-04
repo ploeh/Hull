@@ -13,8 +13,8 @@ let inline hull points =
 
     let inline comparePolar p0 p1 p2 = turn p0 p1 p2 |> int
 
-    let cmp p1 p2 =
-        let p0 = points |> List.sortWith compareLexigraphic |> List.head
+    let p0 = points |> List.sortWith compareLexigraphic |> List.head
+    let cmp p1 p2 =        
         let polarCmp = comparePolar p0 p1 p2
         match polarCmp with
         | 0 -> compareLexigraphic p1 p2
