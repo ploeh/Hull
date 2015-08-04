@@ -7,3 +7,5 @@ let inline turn (x1, y1) (x2, y2) (x3, y3) =
     if prod > LanguagePrimitives.GenericZero then Direction.Left
     elif prod < LanguagePrimitives.GenericZero then Direction.Right
     else Direction.Straight
+
+let inline hull points = [(3., 1.); (3., 7.); (1., 6.); (1., 2.)]
