@@ -22,11 +22,11 @@ let inline hull points =
     let tryDiscard points =
         let rec tryDiscardImp acc = function
             | [p1; p2; p3] when turn p1 p2 p3 = Direction.Right ->
-                acc @ [p1; p3]
-            | [p1; p2; p3] -> acc @ [p1; p2; p3]
-            | p :: ps -> tryDiscardImp (acc @ [p]) ps
+                p3 :: p1 :: acc
+            | [p1; p2; p3] -> p3 :: p2 :: p1 :: acc
+            | p :: ps -> tryDiscardImp (p :: acc) ps
             | [] -> acc
-        let newPoints = tryDiscardImp [] points
+        let newPoints = tryDiscardImp [] points |> List.rev
         if newPoints.Length <> points.Length
         then Some newPoints
         else None
