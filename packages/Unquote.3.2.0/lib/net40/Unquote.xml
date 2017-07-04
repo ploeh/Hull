@@ -86,32 +86,44 @@ An &quot;unquoted&quot; view of a quotation. i.e. provides info about the reduct
 of a quotation.
 </summary>
 </member>
-<member name="">
-
+<member name="M:Swensen.Unquote.Assertions.op_LessGreaterBang``1(``0,``0)">
+<summary>
+ Test the objects with structural inequality
+</summary>
 </member>
-<member name="">
-
+<member name="M:Swensen.Unquote.Assertions.op_GreaterEqualsBang``1(``0,``0)">
+<summary>
+ Test the objects with structural greater-than-or-equal comparison
+</summary>
 </member>
-<member name="">
-
+<member name="M:Swensen.Unquote.Assertions.op_LessEqualsBang``1(``0,``0)">
+<summary>
+ Test the objects with structural less-than-or-equal comparison
+</summary>
 </member>
-<member name="">
-
+<member name="M:Swensen.Unquote.Assertions.op_GreaterBang``1(``0,``0)">
+<summary>
+ Test the objects with structural greater-than comparison
+</summary>
 </member>
-<member name="">
-
+<member name="M:Swensen.Unquote.Assertions.op_LessBang``1(``0,``0)">
+<summary>
+ Test the objects with structural less-than comparison
+</summary>
 </member>
-<member name="">
-
+<member name="M:Swensen.Unquote.Assertions.op_EqualsBang``1(``0,``0)">
+<summary>
+ Test the objects with structural equality
+</summary>
 </member>
 <member name="M:Swensen.Unquote.Assertions.raisesWith``1(Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Core.FSharpFunc`2{``0,Microsoft.FSharp.Quotations.FSharpExpr{System.Boolean}})">
 <summary>
-Test wether the given expr fails with the given expected exception (or a subclass thereof) when the additional assertion on the exception object holds.
+Test whether the given expr fails with the given expected exception (or a subclass thereof) when the additional assertion on the exception object holds.
 </summary>
 </member>
 <member name="M:Swensen.Unquote.Assertions.raises``1(Microsoft.FSharp.Quotations.FSharpExpr)">
 <summary>
-Test wether the given expr fails with the given expected exception (or a subclass thereof).
+Test whether the given expr fails with the given expected exception (or a subclass thereof).
 </summary>
 </member>
 <member name="M:Swensen.Unquote.Assertions.test(Microsoft.FSharp.Quotations.FSharpExpr{System.Boolean})">
@@ -144,6 +156,15 @@ Evaluate the given boolean expression: if false output incremental eval steps us
 <summary>
 These &apos;?&apos; suffixed operators conflict with F# 3.0&apos;s nullable operators and have been replaced by equivalent &apos;!&apos; suffixed operators.
 </summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
 </member>
 <member name="">
 
@@ -469,66 +490,6 @@ Strip possibly nested target invocation exception
 <member name="T:Swensen.Unquote.Evaluation">
 
 </member>
-<member name="M:Swensen.Unquote.Extensions.Type.get_FSharpName(System.Type)">
-<summary>
-The F#-style signature. Note: this property is out-of-place in this assembly and may be moved elsewhere in future versions.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.IsReduced(Microsoft.FSharp.Quotations.FSharpExpr)">
-<summary>
-Determine whether this expression is reduced.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.ReduceFully(Microsoft.FSharp.Quotations.FSharpExpr)">
-<summary>
-Convert the given expression to a list of all of its Reduce steps in order.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.ReduceFully(Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object})">
-<summary>
-Convert this expression with the given variable environment to a list of all of its Reduce steps in order.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.Reduce(Microsoft.FSharp.Quotations.FSharpExpr)">
-<summary>
-Reduce this expression by one step: convert each branch of the given expression to a Value expression of its 
-evaluation if each sub-branch of the branch is reduced.
-If this expression is already reduced, or cannot be reduced, returns itself.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.Reduce(Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object})">
-<summary>
-Reduce this expression by one step with the given variable environment: convert each branch of the given expression to a Value expression of its 
-evaluation if each sub-branch of the branch is reduced.
-If this expression is already reduced, or cannot be reduced, returns itself.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.Decompile(Microsoft.FSharp.Quotations.FSharpExpr)">
-<summary>
-Decompile this expression to its source code representation. Sub-expressions which are
-not currently supported will fallback on the default Expr.ToString() implementation.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.Eval``1(Microsoft.FSharp.Quotations.FSharpExpr)">
-<summary>
-Evaluate this untyped expression.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr.Eval``1(Microsoft.FSharp.Quotations.FSharpExpr,Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object})">
-<summary>
-Evaluate this untyped expression with the given variable environment.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr`1.Eval``1(Microsoft.FSharp.Quotations.FSharpExpr{``0},Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object})">
-<summary>
-Evaluate this typed expression with the given variable environment.
-</summary>
-</member>
-<member name="M:Swensen.Unquote.Extensions.Expr`1.Eval``1(Microsoft.FSharp.Quotations.FSharpExpr{``0})">
-<summary>
-Evaluate this typed expression.
-</summary>
-</member>
 <member name="T:Swensen.Unquote.Extensions">
 <summary>
 Extensions methods on Expr and Expr&lt;&apos;a&gt; for decompiling, evaluating, and incrementally reducing quotation expressions. Also includes a bonus
@@ -583,7 +544,7 @@ Must come before Call pattern.
 </member>
 <member name="M:Swensen.Unquote.ExtraPatterns.|LambdaValue|_|(Microsoft.FSharp.Quotations.FSharpExpr)">
 <summary>
-Matches lambda values, returning the demanged (but not source) name of the lambda
+Matches lambda values, returning the demangled (but not source) name of the lambda
 </summary>
 </member>
 <member name="">
@@ -887,24 +848,24 @@ Build an UnquotedExpression from the given quotation.
 Determine whether the given expression is reduced.
 </summary>
 </member>
-<member name="M:Swensen.Unquote.Operators.reduceFullyWith(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object},Microsoft.FSharp.Quotations.FSharpExpr)">
+<member name="M:Swensen.Unquote.Operators.reduceFullyWith(Microsoft.FSharp.Collections.FSharpMap{Microsoft.FSharp.Quotations.FSharpVar,System.Object},Microsoft.FSharp.Quotations.FSharpExpr)">
 <summary>
 Convert the given expression with the given variable environment to a list of all of its Reduce steps in order.
 </summary>
 </member>
-<member name="M:Swensen.Unquote.Operators.reduceWith(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object},Microsoft.FSharp.Quotations.FSharpExpr)">
+<member name="M:Swensen.Unquote.Operators.reduceWith(Microsoft.FSharp.Collections.FSharpMap{Microsoft.FSharp.Quotations.FSharpVar,System.Object},Microsoft.FSharp.Quotations.FSharpExpr)">
 <summary>
 Reduce the given expression by one step with the given variable environment: convert each branch of the given expression to a Value expression of its 
 evaluation if each sub-branch of the branch is reduced.
 If this expression is already reduced, or cannot be reduced, returns itself.
 </summary>
 </member>
-<member name="M:Swensen.Unquote.Operators.evalWith``1(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object},Microsoft.FSharp.Quotations.FSharpExpr{``0})">
+<member name="M:Swensen.Unquote.Operators.evalWith``1(Microsoft.FSharp.Collections.FSharpMap{Microsoft.FSharp.Quotations.FSharpVar,System.Object},Microsoft.FSharp.Quotations.FSharpExpr{``0})">
 <summary>
 Evaluate the given typed expression with the given variable environment.
 </summary>
 </member>
-<member name="M:Swensen.Unquote.Operators.evalRawWith``1(Microsoft.FSharp.Collections.FSharpMap{System.String,System.Object},Microsoft.FSharp.Quotations.FSharpExpr)">
+<member name="M:Swensen.Unquote.Operators.evalRawWith``1(Microsoft.FSharp.Collections.FSharpMap{Microsoft.FSharp.Quotations.FSharpVar,System.Object},Microsoft.FSharp.Quotations.FSharpExpr)">
 <summary>
 Evaluate the given untyped expression with the given variable environment.
 </summary>
@@ -961,12 +922,6 @@ Operators on Expr and Expr&lt;&apos;a&gt; for decompiling, evaluating, and incre
 <summary>
 Construct a Value from an evaluated expression
 </summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
 </member>
 <member name="T:Swensen.Unquote.Reduction">
 
@@ -1087,12 +1042,6 @@ If PORTABLE compiler directive defined, then RegexOptions.None flag used.
 <summary>
 Regex extensions
 </summary>
-</member>
-<member name="">
-
-</member>
-<member name="">
-
 </member>
 <member name="T:Swensen.Utils.Type">
 
