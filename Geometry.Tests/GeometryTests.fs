@@ -2,6 +2,7 @@
 
 open Xunit
 open Swensen.Unquote
+open Hedgehog
 
 [<Theory>]
 [<InlineData( 0,  0,  1,  0,  1,  1, Direction.Left)>]
@@ -59,6 +60,11 @@ type HullDataAttribute() =
                     [(3, -3); (-9, -3); (0, 7); (3, 8); (3, -9); (1, 3); (-9, 5); (-4, 9); (-2, -10); (8, -2); (-4, 2); (-7, -9); (-5, -10); (0, 2); (9, -7); (6, -4); (4, 7); (-9, -7); (2, 1); (-3, -5); (-5, -1); (9, 6); (-3, 1); (6, -6); (-5, -4); (-6, 5); (0, 9); (-2, -9); (-6, -10); (-8, -1); (-4, -9); (8, -1); (-5, -5); (9, -6); (4, -8); (-3, 7); (2, 3); (-8, 6); (3, -4); (3, 4); (-6, -5); (-4, 3); (9, -10); (5, 4); (-1, 9); (9, 1); (-1, 7); (8, -7); (1, -1); (0, -9); (2, 1); (0, -8); (8, -3); (-8, 7); (7, 1); (-2, 8); (-4, -2); (-5, -10); (4, -6); (0, -5); (-1, -6); (5, 4); (-7, 6); (-3, 4); (4, 8); (-6, -7); (5, 2); (-9, 2); (5, -6); (4, 2); (7, 8); (7, 7)]
                     [(-6, -10); (-5, -10); (-2, -10); (9, -10); (9, -7); (9, -6); (9, 1); (9, 6); (7, 8); (0, 9); (-1, 9); (-4, 9); (-8, 7); (-9, 5); (-9, 2); (-9, -3); (-9, -7)]
                 |]
+            yield
+                [|
+                    List.empty<int * int>
+                    List.empty<int * int>
+                |]
         }
 
 [<Theory; HullData>]
@@ -68,3 +74,25 @@ let ``hull returns correct result``
 
     let (Hull actual) = hull points
     expected =! actual
+
+[<Fact>]
+let ``Hull addition is associative`` () = Property.check <| property {
+    let! (x, y, z) =
+        Range.linear -10000 10000
+        |> Gen.int
+        |> Gen.tuple
+        |> Gen.list (Range.linear 0 100)
+        |> Gen.tuple3
+    (hull x + hull y) + hull z =! hull x + (hull y + hull z) }
+
+[<Fact>]
+let `` Hull addition has identity`` () = Property.check <| property {
+    let! x =
+        Range.linear -10000 10000
+        |> Gen.int
+        |> Gen.tuple
+        |> Gen.list (Range.linear 0 100)
+    let hasIdentity =
+        Hull.identity + hull x = hull x + Hull.identity &&
+        hull x + Hull.identity = hull x
+    test <@ hasIdentity @> }

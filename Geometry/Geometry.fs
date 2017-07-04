@@ -4,6 +4,9 @@ type Direction = Left = -1 | Straight = 0 | Right = 1
 
 type Hull<'a> = Hull of ('a * 'a) list
 
+module Hull =
+    let identity = Hull []
+
 let inline turn (x1, y1) (x2, y2) (x3, y3) =
     let prod = (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
     if prod > LanguagePrimitives.GenericZero then Direction.Left
@@ -14,12 +17,6 @@ let inline hull points =
     let compareLexigraphic (x1, y1) (x2, y2) = compare (y1, x1) (y2, x2)
 
     let comparePolar p0 p1 p2 = turn p0 p1 p2 |> int
-
-    let p0 = points |> List.sortWith compareLexigraphic |> List.head
-    let cmp p1 p2 =    
-        match comparePolar p0 p1 p2 with
-        | 0 -> compareLexigraphic p1 p2
-        | x -> x
 
     let tryDiscard points =
         let rec tryDiscardImp acc = function
@@ -42,9 +39,20 @@ let inline hull points =
         | [] -> candidates
         | p :: tail -> hullPoints (discardFrom (candidates @ [p])) tail
 
-    points
-    |> List.sortWith cmp
-    |> Seq.distinct
-    |> Seq.toList
-    |> hullPoints []
-    |> Hull
+    if List.isEmpty points
+    then Hull.identity
+    else
+        let p0 = points |> List.sortWith compareLexigraphic |> List.head
+        let cmp p1 p2 =
+            match comparePolar p0 p1 p2 with
+            | 0 -> compareLexigraphic p1 p2
+            | x -> x
+
+        points
+        |> List.sortWith cmp
+        |> Seq.distinct
+        |> Seq.toList
+        |> hullPoints []
+        |> Hull
+
+let inline (+) (Hull x) (Hull y) = hull (x @ y)
