@@ -66,5 +66,5 @@ let ``hull returns correct result``
     (points : (int * int) list)
     (expected : (int * int) list) = 
 
-    let actual = hull points
+    let (Hull actual) = hull points
     expected =! actual
