@@ -10,7 +10,7 @@
     <RootNamespace>Geometry</RootNamespace>
     <AssemblyName>Ploeh.Geometry</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
+    <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
     <Name>Geometry</Name>
     <TargetFrameworkProfile />
   </PropertyGroup>

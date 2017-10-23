@@ -1,4 +1,4 @@
-﻿#r @"packages/FAKE.4.0.3/tools/FakeLib.dll"
+﻿#r @"packages/FAKE.4.63.2/tools/FakeLib.dll"
 
 open Fake
 open Fake.Testing
